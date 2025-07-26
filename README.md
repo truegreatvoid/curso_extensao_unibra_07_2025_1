@@ -3,7 +3,7 @@
 **Título do Curso:** GitHub Pro: Domine a Colaboração e o Código na Prática  
 **Objetivo:** Este projeto foi desenvolvido como parte das atividades práticas do curso de extensão da UNIBRA, com foco em colaboração via GitHub, versionamento de código e construção de aplicações em grupo.
 
-O sistema proposto é uma aplicação simples com autenticação de usuários, implementada com foco em boas práticas, organização de código e trabalho em equipe. A stack utilizada será majoritariamente baseada em Python/Django para o backend e tecnologias web modernas no frontend.
+O sistema proposto é uma aplicação simples com autenticação de usuários, implementada com foco em boas práticas, organização de código e trabalho em equipe. A stack utilizada será majoritariamente baseada em Python/Django.
 
 ---
 
@@ -16,31 +16,51 @@ O sistema proposto é uma aplicação simples com autenticação de usuários, i
 | Carlos           | Frontend  | [@carloosph1](https://github.com/carloosph1)       |
 | Warley           | Frontend  | [@warleyLucas](https://github.com/warleyLucas)     |
 | Guilherme Brito  | Backend   | [@Dyadss](https://github.com/Dyadss)               |
-| Professor        | Monitoria | [@unibragabriel](https://github.com/unibragabriel) |
+| Gabriel Arnaud   | Professor | [@unibragabriel](https://github.com/unibragabriel) |
 
 ---
 
+Claro! Aqui está a versão aprimorada da sua seção `## 📘 Docs` com instruções mais claras e diretas:
+
+````markdown
 ## 📘 Docs
 
-### 🛠️ Ferramentas Utilizadas
+### 🛠️ Ferramentas Necessárias
 
-- **Python 3.13** – [Download do Python](https://www.python.org/downloads/release/python-3130/)
-- **uv (Python Package Manager)** – [Documentação oficial](https://docs.astral.sh/uv/getting-started/installation/)
+Para rodar este projeto localmente, é necessário ter as seguintes ferramentas instaladas:
+
+- **[Python 3.13](https://www.python.org/downloads/release/python-3130/)**
+- **[uv – Gerenciador de Pacotes Python](https://docs.astral.sh/uv/getting-started/installation/)**
+
+> Certifique-se de que ambas estão corretamente configuradas no seu ambiente (variáveis de ambiente e PATH).
 
 ---
 
-### 🚀 Como executar o projeto localmente
+### 🚀 Executando o Projeto Localmente
+
+Siga os passos abaixo para iniciar o ambiente de desenvolvimento:
 
 #### 1. Instalar as dependências
 
-Execute o comando abaixo para sincronizar o ambiente virtual com base no `pyproject.toml`:
+No diretório raiz do projeto, execute:
 
 ```bash
 uv sync
 ```
+````
 
-#### 2. Rodar o servidor de desenvolvimento
+Esse comando irá criar o ambiente virtual automaticamente e instalar todas as dependências listadas no `pyproject.toml`.
+
+#### 2. Iniciar o servidor de desenvolvimento
+
+Após a instalação das dependências, execute:
 
 ```bash
 uv run python manage.py runserver
+```
+
+Pronto! O servidor estará rodando em `http://127.0.0.1:8000/` por padrão.
+
+```
+
 ```
