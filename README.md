@@ -20,9 +20,6 @@ O sistema proposto é uma aplicação simples com autenticação de usuários, i
 
 ---
 
-Claro! Aqui está a versão aprimorada da sua seção `## 📘 Docs` com instruções mais claras e diretas:
-
-````markdown
 ## 📘 Docs
 
 ### 🛠️ Ferramentas Necessárias
@@ -47,6 +44,7 @@ No diretório raiz do projeto, execute:
 ```bash
 uv sync
 ```
+
 ````
 
 Esse comando irá criar o ambiente virtual automaticamente e instalar todas as dependências listadas no `pyproject.toml`.
@@ -64,3 +62,4 @@ Pronto! O servidor estará rodando em `http://127.0.0.1:8000/` por padrão.
 ```
 
 ```
+````
