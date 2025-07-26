@@ -45,8 +45,6 @@ No diretório raiz do projeto, execute:
 uv sync
 ```
 
-````
-
 Esse comando irá criar o ambiente virtual automaticamente e instalar todas as dependências listadas no `pyproject.toml`.
 
 #### 2. Iniciar o servidor de desenvolvimento
@@ -62,4 +60,7 @@ Pronto! O servidor estará rodando em `http://127.0.0.1:8000/` por padrão.
 ```
 
 ```
-````
+
+```
+
+```
