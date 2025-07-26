@@ -56,3 +56,12 @@ uv run python manage.py runserver
 ```
 
 Pronto! O servidor estará rodando em `http://127.0.0.1:8000/` por padrão.
+
+---
+
+### 🔑 Acesso Rápido
+
+Você pode utilizar as credenciais abaixo para acessar o sistema com um usuário administrador pré-configurado:
+
+- **Email:** `admin@admin.com.br`
+- **Senha:** `1234`
