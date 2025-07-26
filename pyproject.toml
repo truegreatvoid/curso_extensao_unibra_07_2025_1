@@ -81,7 +81,7 @@ known-first-party = ["auth"]
 [tool.pyright]
 typeCheckingMode = "strict"
 pythonVersion = "3.13"
-include = ["src", "tests"]
+include = ["tests"]
 exclude = [
     "**/venv",
     "**/.venv",
@@ -92,19 +92,11 @@ exclude = [
 ]
 venv = ".venv"
 venvPath = "."
-executionEnvironments = [{ root = "src" }]
 
 [tool.pytest.ini_options]
 addopts = "-s --color=yes --tb=short"
-pythonpath = ["src"]
 testpaths = ["tests"]
 
 [build-system]
 requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
-
-[tool.setuptools.packages.find]
-where = ["src"]
-
-[tool.setuptools]
-package-dir = { "" = "src" }
