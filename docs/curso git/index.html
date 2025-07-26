@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRUSO GIT</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Login -->
+    <div class="form-box" id="login-box">
+      <h2>Login</h2>
+      <form onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label for="login-email">E-mail</label>
+          <input type="email" id="login-email" required placeholder="Digite seu e-mail" />
+        </div>
+        <div class="form-group">
+          <label for="login-password">Senha</label>
+          <input type="password" id="login-password" required placeholder="Digite sua senha" />
+        </div>
+        <button type="submit" class="btn">Entrar</button>
+      </form>
+      <p class="switch-text">Não tem uma conta?
+        <a href="#" onclick="showRegister()">Crie agora</a>
+      </p>
+    </div>
+
+    <!-- Registro -->
+    <div class="form-box hidden" id="register-box">
+      <h2>Registrar</h2>
+      <form onsubmit="event.preventDefault(); showToast('Registro realizado com sucesso!')">
+        <div class="form-group">
+          <label for="reg-name">Nome</label>
+          <input type="text" id="reg-name" required placeholder="Seu nome" />
+        </div>
+        <div class="form-group">
+          <label for="reg-email">E-mail</label>
+          <input type="email" id="reg-email" required placeholder="Digite seu e-mail" />
+        </div>
+        <div class="form-group">
+          <label for="reg-password">Senha</label>
+          <input type="password" id="reg-password" required placeholder="Crie uma senha" />
+        </div>
+        <button type="submit" class="btn">Registrar</button>
+      </form>
+      <p class="switch-text">Já tem uma conta?
+        <a href="#" onclick="showLogin()">Fazer login</a>
+      </p>
+    </div>
+
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
+
+  <script>
+    function showRegister() {
+      document.getElementById('login-box').classList.add('hidden');
+      document.getElementById('register-box').classList.remove('hidden');
+    }
+
+    function showLogin() {
+      document.getElementById('register-box').classList.add('hidden');
+      document.getElementById('login-box').classList.remove('hidden');
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000); // 3 segundos de duração
+    }
+
+    function handleLogin(event) {
+      event.preventDefault();
+      showToast("Login realizado com sucesso!");
+
+      // Redireciona após 2 segundos
+      setTimeout(() => {
+        window.location.href = "/home/home.html";
+      }, 2000);
+    }
+  </script>
+
+</body>
+</html>
