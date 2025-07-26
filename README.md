@@ -3,7 +3,7 @@
 **Título do Curso:** GitHub Pro: Domine a Colaboração e o Código na Prática  
 **Objetivo:** Este projeto foi desenvolvido como parte das atividades práticas do curso de extensão da UNIBRA, com foco em colaboração via GitHub, versionamento de código e construção de aplicações em grupo.
 
-O sistema proposto é uma aplicação simples com autenticação de usuários, implementada com foco em boas práticas, organização de código e trabalho em equipe. A stack utilizada será majoritariamente baseada em Python/Django.
+O sistema proposto é uma aplicação simples com autenticação de usuários com a funcionalidade do to-do como modulação, implementada com foco em boas práticas, organização de código e trabalho em equipe. A stack utilizada será majoritariamente baseada em Python/Django.
 
 ---
 
