@@ -1,0 +1,35 @@
+name: Check Branch Name
+
+on:
+  pull_request:
+    branches:
+      - main
+      - developer
+
+jobs:
+  branch-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🤖 Start verification
+        run: echo "Starting branch name verification..."
+
+      - name: 🔎 Check branch name prefix
+        run: |
+          echo "Branch name: ${{ github.head_ref }}"
+          if [[ ! "${{ github.head_ref }}" =~ ^(feat|fix|chore|test|docs|refactor|ci|perf|style|revert)/.+$ ]]; then
+            echo "❌ Invalid branch name!"
+            echo "Branch name must start with one of the following prefixes:"
+            echo "  - feat/"
+            echo "  - fix/"
+            echo "  - chore/"
+            echo "  - test/"
+            echo "  - docs/"
+            echo "  - refactor/"
+            echo "  - ci/"
+            echo "  - perf/"
+            echo "  - style/"
+            echo "  - revert/"
+            exit 1
+          fi
+          echo "✅ Branch name is valid!"
