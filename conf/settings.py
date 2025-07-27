@@ -18,15 +18,18 @@ SECRET_KEY = env('SECRET_KEY')
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
     'apps.core',
     'apps.customers',
     'apps.todo',
+    'apps.login',
 ]
 
 MIDDLEWARE = [
@@ -58,13 +61,14 @@ TEMPLATES = [
     },
 ]
 
+ASGI_APPLICATION = 'conf.asgi.application'
 WSGI_APPLICATION = 'conf.wsgi.application'
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'database' / 'unibra.sqlite3',
-    }
+    },
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -95,3 +99,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = env('AUTH_USER_MODEL')
+
+LOGIN_URL = env('LOGIN_URL')
+LOGIN_REDIRECT_URL = env('LOGIN_REDIRECT_URL')
+LOGOUT_REDIRECT_URL = env('LOGOUT_REDIRECT_URL')

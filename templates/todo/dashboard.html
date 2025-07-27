@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | Tarefas{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-between mb-6">
+  <h2 class="text-2xl font-semibold">To-do</h2>
+  <button
+    id="btn-add-task"
+    class="inline-flex items-center gap-2 bg-blue-600 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+    </svg>
+    Nova Tarefa
+  </button>
+</div>
+
+<div class="w-full flex justify-center">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-[1400px]" id="kanban-board">
+    {% for status, label in tarefa_statuses %}
+      <div class="bg-white rounded-lg border shadow flex flex-col h-[75vh] overflow-hidden">
+        <div class="px-4 py-3  
+          {% if status == 'todo' %}
+            bg-gray-200
+          {% elif status == 'doing' %}
+            bg-yellow-200
+          {% elif status == 'done' %}
+            bg-green-200
+          {% endif %}
+        ">
+          <h3 class="text-lg font-semibold
+            {% if status == 'todo' %}
+              text-gray-800
+            {% elif status == 'doing' %}
+              text-yellow-800
+            {% elif status == 'done' %}
+              text-green-800
+            {% endif %}
+          ">{{ label }}</h3>
+        </div>
+        <div
+          class="flex-1 px-4 py-3 overflow-y-auto space-y-3"
+          data-status="{{ status }}"
+          id="kanban-{{ status }}"
+        >
+          {% for tarefa in tarefas %}
+            {% if tarefa.status == status %}
+              {% if tarefa.status == 'todo' %}
+                <div class="task-card bg-gradient-to-br from-gray-100 to-gray-200 text-gray-800 border-gray-300 border rounded-md p-3 shadow-sm hover:shadow-md transition cursor-move" data-id="{{ tarefa.uuid }}">
+              {% elif tarefa.status == 'doing' %}
+                <div class="task-card bg-gradient-to-br from-yellow-100 to-yellow-200 text-yellow-800 border-yellow-300 border rounded-md p-3 shadow-sm hover:shadow-md transition cursor-move" data-id="{{ tarefa.uuid }}">
+              {% elif tarefa.status == 'done' %}
+                <div class="task-card bg-gradient-to-br from-green-100 to-green-200 text-green-800 border-green-300 border rounded-md p-3 shadow-sm hover:shadow-md transition cursor-move" data-id="{{ tarefa.uuid }}">
+              {% endif %}
+                <p class="font-semibold">{{ tarefa.name }}</p>
+                {% if tarefa.description %}
+                  <p class="text-sm">{{ tarefa.description }}</p>
+                {% endif %}
+                <p class="text-xs mt-2 flex items-center gap-1 text-gray-700">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                  </svg>
+                  Criado em {{ tarefa.created_at|date:"d/m/Y H:i" }}
+                </p>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+
+<script>
+
+    document.getElementById("btn-add-task").addEventListener("click", async () => {
+    const { value: formValues } = await Swal.fire({
+      title: 'Nova Tarefa',
+      html: `
+        <div class="text-left space-y-4">
+          <div>
+            <label for="swal-name" class="block text-sm font-medium text-gray-700 mb-1">Título</label>
+            <input id="swal-name" type="text" class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring focus:ring-blue-200" placeholder="Título da tarefa">
+          </div>
+          <div>
+            <label for="swal-desc" class="block text-sm font-medium text-gray-700 mb-1">Descrição</label>
+            <textarea id="swal-desc" rows="3" class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring focus:ring-blue-200" placeholder="Descrição (opcional)"></textarea>
+          </div>
+        </div>
+      `,
+      showCancelButton: true,
+      confirmButtonText: `
+        <span class="inline-flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-3" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+          </svg>
+          Criar
+        </span>
+      `,
+      cancelButtonText: `
+        <span class="inline-flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-3" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+          </svg>
+          Cancelar
+        </span>
+      `,
+      customClass: {
+        popup: 'w-full max-w-md !p-6',
+        confirmButton: 'bg-blue-600 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-200',
+        cancelButton: 'bg-gray-100 text-gray-700 text-sm px-4 py-2 rounded-md hover:bg-gray-200 focus:outline-none focus:ring focus:ring-gray-200',
+        actions: 'flex justify-end gap-3 mt-6'
+      },
+      focusConfirm: false,
+      preConfirm: () => {
+        const name = document.getElementById('swal-name').value.trim();
+        const description = document.getElementById('swal-desc').value.trim();
+        if (!name) {
+          Swal.showValidationMessage('O título é obrigatório');
+          return false;
+        }
+        return { name, description };
+      }
+    });
+
+    if (formValues) {
+      try {
+        const response = await fetch("{% url 'todo:create_task' %}", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": "{{ csrf_token }}"
+          },
+          body: JSON.stringify(formValues)
+        });
+
+        if (response.ok) {
+          Swal.fire('Criado!', 'Sua tarefa foi adicionada.', 'success').then(() => window.location.reload());
+        } else {
+          Swal.fire('Erro', 'Não foi possível criar a tarefa.', 'error');
+        }
+      } catch (err) {
+        Swal.fire('Erro', 'Algo deu errado.', 'error');
+      }
+    }
+  });
+
+
+  function updateCardVisual(card, status) {
+    const classes = {
+      todo: ["from-gray-100", "to-gray-200", "text-gray-800", "border-gray-300"],
+      doing: ["from-yellow-100", "to-yellow-200", "text-yellow-800", "border-yellow-300"],
+      done: ["from-green-100", "to-green-200", "text-green-800", "border-green-300"],
+    };
+
+    card.classList.remove(
+      ...classes.todo,
+      ...classes.doing,
+      ...classes.done
+    );
+
+    card.classList.add(...classes[status]);
+  }
+
+  document.querySelectorAll('[id^="kanban-"]').forEach(container => {
+    new Sortable(container, {
+      group: 'kanban-tasks',
+      animation: 150,
+      sort: false,
+      draggable: '.task-card',
+      onEnd: async (evt) => {
+        const taskId = evt.item.dataset.id;
+        const newStatus = evt.to.dataset.status;
+
+        try {
+          await fetch("{% url 'todo:update_status' %}", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRFToken": "{{ csrf_token }}"
+            },
+            body: JSON.stringify({
+              uuid: taskId,
+              status: newStatus
+            })
+          });
+
+          updateCardVisual(evt.item, newStatus);
+
+        } catch (err) {
+          console.error("Erro ao atualizar status:", err);
+        }
+      }
+    });
+  });
+</script>
+{% endblock %}
