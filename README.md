@@ -65,3 +65,6 @@ Você pode utilizar as credenciais abaixo para acessar o sistema com um usuário
 
 - **Email:** `admin@admin.com.br`
 - **Senha:** `1234`
+
+- **Email:** `user1@user1.com.br`
+- **Senha:** `1234`
